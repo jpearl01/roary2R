@@ -15,6 +15,7 @@ require 'csv'
 
 opts = Trollop::options do
   opt :r,   "Roary gene_presence_absence_paralogs_merged.csv file", 		:type => :string, :required => true
+  opt :o,   "Output File Name", 		:type => :string, :required => true
   
 end
 
@@ -69,7 +70,7 @@ CSV.open(opts.r, 'r').each do |line|
 	end
 end
 
-out = File.open("output.csv", "w")
+out = File.open(opts.o, "w")
 
 #create header
 out.puts "strain,gene_long,"+headers[0..10].join(",") + ",cluster_id,gene_short"
