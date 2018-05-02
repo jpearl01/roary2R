@@ -9,9 +9,9 @@ require 'csv'
 #e.g. L_00105___23171 into L_00105 and adds that to the 'gene_short' column
 #while maintaining the original in the 'gene_long' column.
 
-#usage: ruby roary2R.rb -r gene_presence_absence_paralogs_merged.csv
+#usage: ruby roary2R.rb -r gene_presence_absence_paralogs_merged.csv -o output.csv
 
-#Currently automatically writes to 'output.csv'
+
 
 opts = Trollop::options do
   opt :r,   "Roary gene_presence_absence_paralogs_merged.csv file", 		:type => :string, :required => true
