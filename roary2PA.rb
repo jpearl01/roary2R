@@ -44,7 +44,7 @@ CSV.open(opts.r, 'r').each do |line|
 
 	end
 
-	out.puts(line.join(",") + clust)
+	out.puts(line.join("\t") + clust)
 
 end	
 
