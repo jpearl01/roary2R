@@ -31,7 +31,7 @@ CSV.open(opts.r, 'r').each do |line|
 			headers.push(h)
 		end	
 		
-		out.puts headers.join("\t") + "cluster_id"
+		out.puts headers.join(",") + ",cluster_id"
 		
 	else
 		cluster_count = cluster_count + 1
@@ -45,7 +45,7 @@ CSV.open(opts.r, 'r').each do |line|
 
 	end
 
-	out.puts(line.join("\t") + clust) unless $. == 1
+	out.puts(line.join(",") + "," + clust) unless $. == 1
 
 end	
 
