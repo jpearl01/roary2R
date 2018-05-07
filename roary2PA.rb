@@ -31,11 +31,14 @@ CSV.open(opts.r, 'r').each do |line|
 			headers.push(h)
 		end	
 		
-		out.puts headers.join(",") + ",cluster_id"
+		out.puts headers.join("\t") + "\tcluster_id"
 		
 	else
 		cluster_count = cluster_count + 1
 		clust = "cluster_"+cluster_count.to_s
+		(0..11).each do |e|
+			line[e].gsub!("\t", ",")
+		end
 		
 		(11..line.size-1).each do |e|	
 			#Check if there is nothing in the cell, if so it is 0, 1 otherwise
@@ -45,7 +48,7 @@ CSV.open(opts.r, 'r').each do |line|
 
 	end
 
-	out.puts(line.join(",") + "," + clust) unless $. == 1
+	out.puts(line.join("\t") + "\t" + clust) unless $. == 1
 
 end	
 
