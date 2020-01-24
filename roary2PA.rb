@@ -1,18 +1,19 @@
 #!/usr/bin/env ruby
 
-require 'trollop'
+require 'optimist'
 require 'csv'
 
 #This program converts Rachel's 'gene_presence_absence_paralogs_merged.csv'
 #into a pure presence/absence matrix for each gene (i.e. just a 1 if any number of genes/paralogs,  0 otherwise)
+#converts to a tab separated files, because there are commas in some of the cells
 
-#usage: ruby roary2R.rb -r gene_presence_absence_paralogs_merged.csv -o output.csv
+#usage: ruby roary2R.rb -r gene_presence_absence_paralogs_merged.csv -o output.tsv
 
 
 
-opts = Trollop::options do
+opts = Optimist::options do
   opt :r,   "Roary gene_presence_absence_paralogs_merged.csv file", 		:type => :string, :required => true
-  opt :o,   "Output File Name", 		:type => :string, :required => true
+  opt :o,   "Output File Name (output.tsv)", 		:type => :string, :default => "output.tsv"
 end
 
 headers=[]
