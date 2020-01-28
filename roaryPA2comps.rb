@@ -12,6 +12,33 @@ require 'daru'
 
 
 opts = Optimist::options do
-  opt :r,   "Roary gene_presence_absence_paralogs_merged.csv file", 		:type => :string, :required => true
-  opt :o,   "Output File Name (output.tsv)", 		:type => :string, :default => "output.tsv"
+  opt :r,   "Presence/Absence file output from roary2PA.rb", 		type: :string, required: true
+  opt :s,   "Similarity Output File Name (output.tsv)", 		    type: :string, default: "similarity.tsv"
+  opt :d,   "Difference output file name (difference.tsv)",     type: :string, default: "difference.tsv"
 end
+
+df = Daru::DataFrame.from_csv(opts[:r], col_sep: "\t")
+pa = df[11..df.shape[1]-2]
+sim_df = Daru::DataFrame.new([], order: pa.vectors, index: pa.vectors)
+dif_df = Daru::DataFrame.new([], order: pa.vectors, index: pa.vectors)
+
+#pa.write_csv("debug.tsv")
+#abort()
+
+(0..pa.shape[1]-1).each do |i|
+	(0..pa.shape[1]-1).each do |j|
+		new_vec = pa[i] + pa[j]
+		diff = 0
+		sim  = 0
+		new_vec.each do |v|
+			diff += 1 if v==1
+			sim  += 1 if v==2
+		end
+		sim_df[i][j] = sim
+		dif_df[i][j] = diff		
+	end
+	
+end
+
+sim_df.write_csv(opts[:s], col_sep: "\t")
+dif_df.write_csv(opts[:d], col_sep: "\t")
