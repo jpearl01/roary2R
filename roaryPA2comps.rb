@@ -4,12 +4,17 @@ require 'optimist'
 require 'csv'
 require 'daru'
 
-#This program converts a tab separated roary gene presence/absence table (from roary2PA.rb)
-#Into two matrices of pairwise comparisons between strain presence/absences
-
-#usage: ruby roary2R.rb -r output.tsv
 
 opts = Optimist::options do
+  version "roary2PA.rb 1.1 (c) 2020 THE Josh Earl"
+  banner <<-EOS
+This program converts a tab separated roary gene presence/absence table (from roary2PA.rb)
+Into two matrices of pairwise comparisons between strain presence/absences
+
+Usage: ruby roary2R.rb -r output.tsv [options]
+
+where [options] are:
+EOS
   opt :r,   "Presence/Absence file output from roary2PA.rb", 		type: :string, required: true
   opt :s,   "Similarity Output File Name (output.tsv)", 		    type: :string, default: "similarity.tsv"
   opt :d,   "Difference output file name (difference.tsv)",     type: :string, default: "difference.tsv"
