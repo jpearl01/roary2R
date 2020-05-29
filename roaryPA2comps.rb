@@ -5,11 +5,9 @@ require 'csv'
 require 'daru'
 
 #This program converts a tab separated roary gene presence/absence table (from roary2PA.rb)
-#Into a matrix of pairwise comparisons between strain presence/absences
+#Into two matrices of pairwise comparisons between strain presence/absences
 
-#usage: ruby roary2R.rb -r gene_presence_absence_paralogs_merged.csv -o output.tsv
-
-
+#usage: ruby roary2R.rb -r output.tsv
 
 opts = Optimist::options do
   opt :r,   "Presence/Absence file output from roary2PA.rb", 		type: :string, required: true
@@ -25,6 +23,7 @@ dif_df = Daru::DataFrame.new([], order: pa.vectors, index: pa.vectors)
 #pa.write_csv("debug.tsv")
 #abort()
 
+#There may be a more 'daru' way to do this, but this works
 (0..pa.shape[1]-1).each do |i|
 	(0..pa.shape[1]-1).each do |j|
 		new_vec = pa[i] + pa[j]
