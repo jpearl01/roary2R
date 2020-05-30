@@ -1,19 +1,23 @@
 #!/usr/bin/env ruby
 
-require 'trollop'
+require 'optimist'
 require 'csv'
 
-#This program converts Rachel's 'gene_presence_absence_paralogs_merged.csv'
-#Into a 'long' format for reading into R.  It also converts the long gene names 
-#Back into short read names of the format "L_######_###" into "L_#####"
-#e.g. L_00105___23171 into L_00105 and adds that to the 'gene_short' column
-#while maintaining the original in the 'gene_long' column.
 
-#usage: ruby roary2R.rb -r gene_presence_absence_paralogs_merged.csv -o output.csv
+opts = Optimist::options do
+  version "roary2R.rb 1.1 (c) 2020 Josh Earl"
+  banner <<-EOS
+This program converts Rachel's 'gene_presence_absence_paralogs_merged.csv'
+Into a 'long' format for reading into R.  It also converts the long gene names
+Back into short read names of the format "L_######_###" into "L_#####"
+e.g. L_00105___23171 into L_00105 and adds that to the 'gene_short' column
+while maintaining the original in the 'gene_long' column.
 
+Usage: ruby roary2R.rb -r gene_presence_absence_paralogs_merged.csv -o output.csv
 
+where [options] are:
+EOS
 
-opts = Trollop::options do
   opt :r,   "Roary gene_presence_absence_paralogs_merged.csv file", 		:type => :string, :required => true
   opt :o,   "Output File Name", 		:type => :string, :required => true
   
