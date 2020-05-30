@@ -11,7 +11,7 @@ opts = Optimist::options do
 This program converts a tab separated roary gene presence/absence table (from roary2PA.rb)
 Into two matrices of pairwise comparisons between strain presence/absences
 
-Usage: ruby roary2R.rb -r output.tsv [options]
+Usage: ruby roaryPA2comps.rb -r output.tsv [options]
 
 where [options] are:
 EOS
